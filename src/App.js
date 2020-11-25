@@ -1,7 +1,16 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
 import contacts from './contacts.json';
-
+import Button from '@material-ui/core/Button';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Container from '@material-ui/core/Container'
+import { flexbox } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
 
 class App extends React.Component {
   state = {
@@ -46,28 +55,35 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>IronContacts</h1>
-        <button onClick={this.addRandomContactHandler}>Add Random Contact</button>
-        <button onClick={this.sortByNameHandler}>Sort by name</button>
-        <button onClick={this.sortByPopularityHandler}>Sort by popularity</button>
-        <table>
-            <tr>
-              <th>Picture</th>
-              <th>Name</th>
-              <th>Popularity</th>
-            </tr>
-          <tbody>
-              {this.state.contactsArray.map(contact => 
-              <tr>
-                <td><img src={contact.pictureUrl} style={{width: '10%'}} alt=""/></td>
-                <td>{contact.name}</td>
-                <td>{contact.popularity}</td>
-                <button onClick={this.deleteByIdHandler}>Delete</button>
-              </tr>)}
-          </tbody>
-        </table>
-      </div>
+      <Container>
+        <Box display="flex" justifyContent="center">
+          <h1>IronContacts</h1>
+        </Box>
+        <Box display="flex" justifyContent="space-around" >
+          <Button variant="contained" color="primary" onClick={this.addRandomContactHandler}>Add Random Contact</Button>
+          <Button variant="contained" color="primary" onClick={this.sortByNameHandler}>Sort by name</Button>
+          <Button variant="contained" color="primary" onClick={this.sortByPopularityHandler}>Sort by popularity</Button>
+        </Box>
+        <TableContainer>
+          <Table>
+              <TableRow>
+                <TableCell><h2>Picture</h2></TableCell>
+                <TableCell><h2>Name</h2></TableCell>
+                <TableCell><h2>Popularity</h2></TableCell>
+              </TableRow>
+            <TableBody>
+                {this.state.contactsArray.map(contact => 
+                <TableRow>
+                  <TableCell><img src={contact.pictureUrl} style={{width: '10%'}} alt=""/></TableCell>
+                  <TableCell>{contact.name}</TableCell>
+                  <TableCell>{contact.popularity}</TableCell>
+                  <Button variant="contained" color="secondary" onClick={this.deleteByIdHandler}>Delete</Button>
+                </TableRow>
+                )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     );
 
   }
